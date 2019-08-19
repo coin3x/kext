@@ -16,9 +16,9 @@
 package jahirfiquitiva.libs.kext.ui.layouts
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import androidx.annotation.ColorInt
-import ca.allanwang.kau.utils.tint
 import com.google.android.material.tabs.TabLayout
 
 open class CustomTabLayout @JvmOverloads constructor(
@@ -29,16 +29,9 @@ open class CustomTabLayout @JvmOverloads constructor(
     TabLayout(context, attributeSet, style) {
     
     fun setTabsIconsColors(@ColorInt unselectedColor: Int, @ColorInt selectedColor: Int) {
-        (0 until tabCount)
-            .map { getTabAt(it) }
-            .forEach { tab ->
-                tab?.let {
-                    if (it.isSelected) {
-                        it.icon = it.icon?.tint(selectedColor)
-                    } else {
-                        it.icon = it.icon?.tint(unselectedColor)
-                    }
-                }
-            }
+        tabIconTint = ColorStateList(
+                arrayOf(intArrayOf(android.R.attr.state_selected), intArrayOf()),
+                intArrayOf(selectedColor, unselectedColor)
+        )
     }
 }
